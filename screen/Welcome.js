@@ -54,7 +54,7 @@ const Welcome = ({ navigation }) => {
             onPress={handleAuth}
             className="bg-blue-500  mx-2  py-4 px-4">
             <Text className="text-center font-semibold text-white ">
-              SIgnin
+              Let Get Started
             </Text>
           </TouchableOpacity>
         </View>

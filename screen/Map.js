@@ -8,9 +8,12 @@ import {
   Pressable,
   TextInput,
   TouchableWithoutFeedback,
+  TouchableOpacity,
   Keyboard,
   KeyboardAvoidingView,
 } from "react-native";
+import { Icon } from "@rneui/themed";
+
 import MapView, { Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -47,15 +50,22 @@ const Map = () => {
       onPress={dismissKeyboard}
       style={{ flex: 1, backgroundColor: "white", height: "100%" }}>
       <KeyboardAvoidingView>
-        <View className=" mb-4  bg-blue-600 mx-2 rounded-xl px-2 py-4 shadow-xl">
-          <Text className="text-sm font-medium mb-2 text-white ">
-            Drop Off Point
-          </Text>
-          <View>
+        <View className="px-2 h-24 bg-indigo-500 mx-2 mb-4 rounded-xl">
+          <View className="py-2 ">
+            <Text className="text-white font-normal">
+              Enter Drop Point Code
+            </Text>
+          </View>
+          <View className="mt-2  bg-gray-50 flex-row items-center justify-start border-gray-300 border-2 rounded-md">
             <TextInput
-              placeholder="Location"
-              className="w-full py-2 px-2 text-gray-800 bg-gray-100 rounded-lg"
+              placeholder="Search Parcel Number"
+              className="mx-2 w-5/6 py-3 px-2 text-gray-800"
             />
+            <View className="border-r-1 border-gray-400 px-1">
+              <TouchableOpacity>
+                <Icon name="send" color="gray" className="" />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
         <KeyboardAvoidingView>
