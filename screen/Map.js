@@ -38,12 +38,15 @@ const Map = () => {
   const mapRef = useRef();
 
   const { pickupCords, droplocationCords } = state;
+  const dismissKeyboard = () => {
+    Keyboard.dismiss();
+  };
 
   return (
-    <KeyboardAvoidingView
-      behavior="padding"
+    <TouchableWithoutFeedback
+      onPress={dismissKeyboard}
       style={{ flex: 1, backgroundColor: "white", height: "100%" }}>
-      <View>
+      <KeyboardAvoidingView>
         <View className=" mb-4  bg-blue-600 mx-2 rounded-xl px-2 py-4 shadow-xl">
           <Text className="text-sm font-medium mb-2 text-white ">
             Drop Off Point
@@ -88,8 +91,8 @@ const Map = () => {
             />
           </MapView>
         </KeyboardAvoidingView>
-      </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 
