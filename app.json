@@ -3,8 +3,14 @@
     "name": "driver-app",
     "slug": "driver-app",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
+    "assetBundlePatterns": ["**/*"],
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(driver-app) to use your location."
+        }
+      ]
     ]
   }
 }

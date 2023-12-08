@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Text,
   View,
@@ -13,13 +13,19 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { Icon } from "@rneui/themed";
+import * as Location from "expo-location";
 
 import MapView, { Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Map = () => {
+  const [location, setLocation] = useState([]);
   const [origin, setOrigin] = useState();
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [mapDetails, setMapDetails] = useState();
+
+  const [weatherData, setWeatherData] = useState();
   const [destination, setDestination] = useState();
   const Stack = createNativeStackNavigator();
 
@@ -37,6 +43,43 @@ const Map = () => {
       longitudeDelta: 0.0421,
     },
   });
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+
+    if (location) {
+      setState({
+        pickupCords: {
+          latitude: location?.coords?.latitude,
+          longitude: location?.coords?.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        },
+        droplocationCords: {
+          latitude: 5.53405,
+          longitude: -0.42376,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        },
+      });
+    }
+  }, [location]);
+
+  // let text = "Waiting..";
+  // if (errorMsg) {
+  //   text = errorMsg;
+  // } else if (location) {
+  //   text = JSON.stringify(location);
+  // }
 
   const mapRef = useRef();
 
@@ -68,38 +111,52 @@ const Map = () => {
             </View>
           </View>
         </View>
+        <View>
+          <View>
+            {location && (
+              <Text>
+                Latitude: {location?.coords?.latitude}, Longitude:{" "}
+                {location?.coords?.longitude}
+              </Text>
+            )}
+          </View>
+        </View>
         <KeyboardAvoidingView>
-          <MapView
-            className="h-full  "
-            ref={mapRef}
-            initialRegion={pickupCords}>
-            <Marker
-              coordinate={pickupCords}
-              onPress={() => {
-                Keyboard.dismiss();
-              }}
-            />
-            <Marker coordinate={droplocationCords} />
+          {location != [] ? (
+            <MapView
+              className="h-full  "
+              ref={mapRef}
+              initialRegion={pickupCords}>
+              <Marker
+                coordinate={pickupCords}
+                onPress={() => {
+                  Keyboard.dismiss();
+                }}
+              />
+              <Marker coordinate={droplocationCords} />
 
-            <MapViewDirections
-              origin={pickupCords}
-              destination={droplocationCords}
-              apikey={"AIzaSyDW8boQLgrf5XsnxUhcxwDp8DHqU-_TdwA"}
-              strokeWidth={3}
-              strokeColor="red"
-              optimizeWaypoints={true}
-              onReady={(result) => {
-                mapRef.current.fitToCoordinates(result.coordinates, {
-                  edgePadding: {
-                    right: 30,
-                    bottom: 300,
-                    left: 30,
-                    top: 100,
-                  },
-                });
-              }}
-            />
-          </MapView>
+              <MapViewDirections
+                origin={pickupCords}
+                destination={droplocationCords}
+                apikey={"AIzaSyDW8boQLgrf5XsnxUhcxwDp8DHqU-_TdwA"}
+                strokeWidth={3}
+                strokeColor="red"
+                optimizeWaypoints={true}
+                onReady={(result) => {
+                  mapRef.current.fitToCoordinates(result.coordinates, {
+                    edgePadding: {
+                      right: 30,
+                      bottom: 300,
+                      left: 30,
+                      top: 100,
+                    },
+                  });
+                }}
+              />
+            </MapView>
+          ) : (
+            <Text>Loading</Text>
+          )}
         </KeyboardAvoidingView>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>

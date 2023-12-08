@@ -69,50 +69,15 @@ export default function App() {
     );
   }
 
-  if (!signIn) {
-    return (
-      <UserContextProvider>
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Home" component={Welcome} />
-            <Stack.Screen name="Signin" component={Login} />
-            <Stack.Screen name="HomePage" component={HomeScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </UserContextProvider>
-    );
-  } else {
-    return (
-      <UserContextProvider>
-        <NavigationContainer>
-          <Tab.Navigator
-            screenOptions={({ route }) => ({
-              tabBarIcon: ({ color, size }) => {
-                let iconName;
-                if (route.name === "Home") {
-                  iconName = "home";
-                } else if (route.name === "Confirm") {
-                  return (
-                    <FontAwesomeIcon name="check" size={20} color="gray" />
-                  );
-                } else if (route.name === "Deliveries") {
-                  return (
-                    <FontAwesomeIcon name="truck" size={20} color="gray" />
-                  );
-                } else if (route.name === "Map") {
-                  return <Icon name="place" color="gray" />;
-                }
-                // You can return any component that you like here!
-                return <Entypo name={iconName} size={size} color={color} />;
-              },
-            })}>
-            <Tab.Screen name="Home" component={HomePage} />
-            <Tab.Screen name="Confirm" component={Packages} />
-            <Tab.Screen name="Deliveries" component={Deliveries} />
-            <Tab.Screen name="Map" component={Map} />
-          </Tab.Navigator>
-        </NavigationContainer>
-      </UserContextProvider>
-    );
-  }
+  return (
+    <UserContextProvider>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Home" component={Welcome} />
+          <Stack.Screen name="Signin" component={Login} />
+          <Stack.Screen name="HomePage" component={HomeScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserContextProvider>
+  );
 }
