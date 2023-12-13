@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Text,
   TextInput,
@@ -13,14 +13,45 @@ import {
 } from "react-native";
 import { withExpoSnack } from "nativewind";
 import image from "../images/delivery.png";
+import axios from "axios";
+import { UserContext } from "../context/UserContext";
 
 export const Login = ({ navigation }) => {
+  const { setUser, user, setToken, setUserInfo, userInfo } =
+    useContext(UserContext);
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
   const dismissKeyboard = () => {
     Keyboard.dismiss();
   };
 
-  const handleAuth = () => {
-    navigation.navigate("HomePage");
+  const handleAuth = async () => {
+    console.log("working fetching");
+    const work = axios
+      .get("http://127.0.0.1:8000/product/shippingproduct/accra", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log(response.data.data);
+
+        // const sortedPackages = [...viewPackages].sort(
+        //   (a, b) => new Date(b.datetime) - new Date(a.datetime)
+        // );
+
+        // setViewPackages(sortedPackages);
+      })
+      .catch((error) => {
+        console.log(error, "pp");
+      });
+    // navigation.navigate("HomePage");
+
+    // setLoggedIn(false);
+    console.log("working fetching");
   };
 
   return (
@@ -38,10 +69,21 @@ export const Login = ({ navigation }) => {
                 <TextInput
                   placeholder="Enter email address"
                   className="border-2 py-3 rounded-md border-gray-300 px-2"
+                  onChangeText={(e) => {
+                    setUsername(e);
+                    console.log(username);
+                  }}
+                  defaultValue={username}
                 />
                 <TextInput
                   placeholder="Enter password"
                   className="border-2 py-3 rounded-md border-gray-300 px-2"
+                  onChangeText={(e) => {
+                    setPassword(e);
+                    console.log(password);
+                  }}
+                  defaultValue={password}
+                  secureTextEntry
                 />
               </View>
 

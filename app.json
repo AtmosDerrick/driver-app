@@ -1,8 +1,16 @@
 {
   "expo": {
-    "name": "driver-app",
-    "slug": "driver-app",
+    "name": "Regoinal Logistic",
+    "slug": "regional-logistic",
     "version": "1.0.0",
+
+    "description": "this is logistic for driver",
+    "icon": "./images/icon.png",
+    "splash": {
+      "image": "./images/delivery.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#fffff"
+    },
     "assetBundlePatterns": ["**/*"],
     "plugins": [
       [

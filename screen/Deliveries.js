@@ -14,16 +14,9 @@ import {
   Keyboard,
   FlatList,
 } from "react-native";
-import image from "../images/delivery.png";
-import { withExpoSnack } from "nativewind";
-import { UserContext } from "../context/UserContext";
+
 import { Icon } from "@rneui/themed";
 
-import map from "../images/map.png";
-import loc from "../images/loc.png";
-import recieve from "../images/recieve.jpg";
-
-import AntIcon from "react-native-vector-icons/AntDesign";
 
 const Deliveries = () => {
   const [selectedIcons, setSelectedIcons] = useState([]);

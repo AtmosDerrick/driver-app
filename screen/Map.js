@@ -111,16 +111,7 @@ const Map = () => {
             </View>
           </View>
         </View>
-        <View>
-          <View>
-            {location && (
-              <Text>
-                Latitude: {location?.coords?.latitude}, Longitude:{" "}
-                {location?.coords?.longitude}
-              </Text>
-            )}
-          </View>
-        </View>
+        <View></View>
         <KeyboardAvoidingView>
           {location != [] ? (
             <MapView

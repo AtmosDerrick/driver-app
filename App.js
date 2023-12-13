@@ -21,11 +21,15 @@ import Deliveries from "./screen/Deliveries";
 import Map from "./screen/Map";
 import SplashScreenView from "./screen/SplashScreen";
 import HomeScreen from "./screen/HomeScreen";
+import axios from "axios";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  // axios.defaults.baseURL = "http://127.0.0.1:8000/";
+  // axios.defaults.withCredentials = true;
+
   const [appIsReady, setAppIsReady] = useState(false);
   const [signIn, setSignIn] = useState(false);
   const Tab = createBottomTabNavigator();

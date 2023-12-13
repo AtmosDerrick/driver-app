@@ -14,7 +14,7 @@ import {
   Keyboard,
   FlatList,
 } from "react-native";
-import image from "../images/delivery.png";
+import image from "../images/welcomescreen.jpg";
 import { withExpoSnack } from "nativewind";
 import { UserContext } from "../context/UserContext";
 import { Icon } from "@rneui/themed";
@@ -32,7 +32,7 @@ const Welcome = ({ navigation }) => {
   };
 
   return (
-    <View className=" ">
+    <View className="bg-white ">
       <SafeAreaView className="items-center">
         <ImageBackground
           source={image}
